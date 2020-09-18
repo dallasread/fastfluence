@@ -1,5 +1,5 @@
 <template>
-  <login :app="app">
+  <login :app="app" v-if="!loading">
     <template v-slot>
       <authenticated :app="app">
         <router-view :app="app" />
@@ -22,6 +22,7 @@ export default {
   data () {
     return {
       app: this,
+      loading: true,
       user: {},
       spaces: {},
       pages: [],
@@ -37,7 +38,11 @@ export default {
   methods: {
     restoreUser () {
       this.localStore.getItem('auth').then((auth) => {
-        if (auth) { this.logIn(JSON.parse(atob(auth))) }
+        if (auth) {
+          this.logIn(JSON.parse(atob(auth)))
+        }
+
+        this.loading = false
       })
     },
 
