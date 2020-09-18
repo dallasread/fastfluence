@@ -5,6 +5,7 @@
     <p>Get started by searching for something in the sidebar.</p>
     <p>As you view each page, they are stored in this browser's local storage (and kept up to date).</p>
     <p>As a bonus, you can <a href="javascript:;" v-on:click="app.updateAllPages()">Download All Content</a> now.</p>
+    <p>And, yes, it works offline. 🔥</p>
   </div>
 </template>
 
