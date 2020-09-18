@@ -20,6 +20,8 @@
 </template>
 
 <script>
+import Cookies from 'js-cookies'
+
 var DEBOUNCER
 
 export default {
@@ -27,7 +29,7 @@ export default {
   props: ['app'],
   data () {
     return {
-      q: '',
+      q: Cookies.get('q') || '',
       debounceQ: ''
     }
   },
@@ -36,6 +38,7 @@ export default {
       clearTimeout(DEBOUNCER)
       DEBOUNCER = setTimeout(() => {
         this.debounceQ = val.toLowerCase()
+        Cookies.set('q', val)
       }, 200)
     }
   },
