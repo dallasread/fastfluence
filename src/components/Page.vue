@@ -59,8 +59,10 @@ export default {
           var match = anchor.href.match(/\/wiki.+pages\/(\d+)\//)
           var id = anchor.getAttribute('data-linked-resource-id') || (match ? match[1] : undefined)
 
-          anchor.target = '_self'
-          anchor.href = `#/pages/${id}`
+          if (id) {
+            anchor.target = '_self'
+            anchor.href = `#/pages/${id}`
+          }
         })
       }, 50)
     }
