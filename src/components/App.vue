@@ -10,7 +10,6 @@
 
 <script>
 import localforage from 'localforage'
-import Cookies from 'js-cookie'
 import Login from '@/components/Login.vue'
 import Authenticated from '@/components/Authenticated.vue'
 
@@ -37,24 +36,22 @@ export default {
   },
   methods: {
     restoreUser () {
-      var auth = Cookies.get('auth')
-
-      if (auth) {
-        this.logIn(JSON.parse(atob(auth)))
-      }
+      this.localStore.getItem('auth').then((auth) => {
+        if (auth) { this.logIn(JSON.parse(atob(auth))) }
+      })
     },
 
     logIn (user) {
       this.user = user
       this.user.auth = btoa(JSON.stringify(user))
-
-      Cookies.set('auth', this.user.auth)
+      this.localStore.setItem('auth', this.user.auth)
     },
 
     logOut () {
       this.setLocalPages([])
-      Cookies.remove('auth')
-      window.location.reload()
+      this.localStore.removeItem('auth').then(() => {
+        window.location.reload()
+      })
     },
 
     addPages (pages) {

@@ -52,6 +52,8 @@ export default {
     updateLinks () {
       if (!this.$refs.body) { return }
 
+      document.title = this.page.title
+
       setTimeout(() => {
         var anchors = this.$refs.body.getElementsByTagName('a')
 
@@ -62,6 +64,8 @@ export default {
           if (id) {
             anchor.target = '_self'
             anchor.href = `#/pages/${id}`
+          } else {
+            anchor.target = '_blank'
           }
         })
       }, 50)

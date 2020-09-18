@@ -20,26 +20,28 @@
 </template>
 
 <script>
-import Cookies from 'js-cookie'
-
 var DEBOUNCER
-var q = Cookies.get('q') || ''
 
 export default {
   name: 'Nav',
   props: ['app'],
   data () {
     return {
-      q: q,
-      debounceQ: q
+      q: '',
+      debounceQ: ''
     }
+  },
+  mounted () {
+    this.app.localStore.getItem('q').then((q) => {
+      if (q) { this.q = this.debounceQ = q }
+    })
   },
   watch: {
     q (val) {
       clearTimeout(DEBOUNCER)
       DEBOUNCER = setTimeout(() => {
         this.debounceQ = val.toLowerCase()
-        Cookies.set('q', val)
+        this.app.localStore.setItem('q', val)
       }, 200)
     }
   },
