@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import Cookies from 'js-cookies'
+import Cookies from 'js-cookie'
 
 var DEBOUNCER
 
