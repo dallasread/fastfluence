@@ -23,14 +23,15 @@
 import Cookies from 'js-cookie'
 
 var DEBOUNCER
+var q = Cookies.get('q') || ''
 
 export default {
   name: 'Nav',
   props: ['app'],
   data () {
     return {
-      q: '',
-      debounceQ: Cookies.get('q') || ''
+      q: q,
+      debounceQ: q
     }
   },
   watch: {
