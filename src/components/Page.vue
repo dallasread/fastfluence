@@ -59,12 +59,7 @@ export default {
           var match = anchor.href.match(/\/wiki.+pages\/(\d+)\//)
           var id = anchor.getAttribute('data-linked-resource-id') || (match ? match[1] : undefined)
 
-          if (id) {
-            anchor.onclick = (e) => {
-              e.preventDefault()
-              this.$router.push(`/pages/${id}`)
-            }
-          }
+          anchor.href = `/#/pages/${id}`
         })
       }, 50)
     }
