@@ -29,8 +29,8 @@ export default {
   props: ['app'],
   data () {
     return {
-      q: Cookies.get('q') || '',
-      debounceQ: ''
+      q: '',
+      debounceQ: Cookies.get('q') || ''
     }
   },
   watch: {
