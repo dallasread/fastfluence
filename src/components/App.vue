@@ -53,9 +53,10 @@ export default {
     },
 
     logOut () {
-      this.setLocalPages([])
-      this.localStore.removeItem('auth').then(() => {
-        window.location.reload()
+      this.localStore.removeItem('pages').then(() => {
+        this.localStore.removeItem('auth').then(() => {
+          window.location.reload()
+        })
       })
     },
 
@@ -100,9 +101,12 @@ export default {
 
     fetch (path, done) {
       var auth = btoa(`${this.user.email}:${this.user.password}`)
+      var proxy = this.user.proxy || ''
+
+      if (proxy) { proxy = `${proxy.replace(/\/$/, '')}/` }
 
       return new Promise((resolve, reject) => {
-        fetch(`https://thawing-brushlands-90182.herokuapp.com/${this.user.url}/rest/api${path}`, {
+        fetch(`${proxy}${this.user.url}/rest/api${path}`, {
           headers: {
             Authorization: `Basic ${auth}`
           }

@@ -103,6 +103,12 @@ export default {
             font-size: inherit;
             border: 0;
           }
+
+          a {
+            display: inline-block;
+            color: blue;
+            padding: 0;
+          }
         }
 
         label {

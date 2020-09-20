@@ -9,7 +9,7 @@
         <form v-on:submit="logIn(user)">
           <ul>
             <li class="field">
-              <label>URL</label>
+              <label>Wiki URL</label>
               <input type="url" v-model="user.url">
             </li>
             <li class="field">
@@ -19,6 +19,10 @@
             <li class="field">
               <label>API Key (likely from <a href="https://id.atlassian.com/manage-profile/security/api-tokens" target="_blank" class="inline">here</a>)</label>
               <input type="password" v-model="user.password">
+            </li>
+            <li class="field">
+              <label>Proxy (eg. <a href="https://github.com/Rob--W/cors-anywhere" target="_blank">CORS Anywhere</a>)</label>
+              <input type="url" v-model="user.proxy">
             </li>
             <li class="actions">
               <button>Log In!</button>
