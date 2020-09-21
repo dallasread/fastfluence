@@ -14,6 +14,7 @@
 </template>
 
 <script>
+const POLL_INTERVAL = 5 * 60 * 1000
 export default {
   name: 'Page',
   props: ['app'],
@@ -24,6 +25,12 @@ export default {
   },
   mounted () {
     this.id = this.$route.params.id
+
+    setInterval(() => {
+      if (this.page) {
+        this.app.updatePage(this.page)
+      }
+    }, POLL_INTERVAL)
   },
   watch: {
     $route (to) {
