@@ -121,7 +121,11 @@ export default {
   }
 
   main {
-    margin-left: 22em;
+    margin-left: 20em;
     padding: 2em;
+
+    & > h1 {
+      margin-top: 0;
+    }
   }
 </style>
