@@ -1,6 +1,6 @@
 <template>
   <div>
-    <search :app="app" />
+    <search :app="app" :class="app.showNav ? 'show-nav' : ''" />
     <main>
       <slot :app="app"></slot>
     </main>
@@ -53,6 +53,16 @@ export default {
     line-height: 1.6;
     border-right: 1px solid #ddd;
 
+    @media (max-width: 780px) {
+      width: auto;
+      right: 0;
+      display: none;
+
+      &.show-nav {
+        display: block;
+      }
+    }
+
     h2 {
       font-weight: bold;
       font-size: 200%;
@@ -66,6 +76,10 @@ export default {
       width: 20em;
       outline: none;
       padding: 0.5em 1em;
+
+      @media (max-width: 780px) {
+        width: 100%;
+      }
     }
 
     ul {
@@ -124,8 +138,25 @@ export default {
     margin-left: 20em;
     padding: 2em;
 
-    & > h1 {
+    @media (max-width: 780px) {
+      margin-left: 0;
+      padding: 1em;
+    }
+
+    .page > h1 {
       margin-top: 0;
+    }
+  }
+
+  @media (min-width: 781px) {
+    .mobile-only {
+      display: none !important;
+    }
+  }
+
+  @media (max-width: 780px) {
+    .desktop-only {
+      display: none !important;
     }
   }
 </style>

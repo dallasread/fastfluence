@@ -23,6 +23,7 @@ export default {
     return {
       app: this,
       loading: true,
+      showNav: false,
       user: {},
       spaces: {},
       pages: [],
@@ -121,6 +122,14 @@ export default {
 
     sort (a, b) {
       return a.title.localeCompare(b.title)
+    },
+
+    toggleNav (override) {
+      if (typeof doShow === 'boolean') {
+        this.showNav = override
+      } else {
+        this.showNav = !this.showNav
+      }
     }
   }
 }

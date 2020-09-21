@@ -4,14 +4,14 @@
     <ul>
       <template v-if="filteredPages.length">
         <li v-for="page in filteredPages" :key="page.id">
-          <router-link :to="'/pages/' + page.id" :class="!!page.body ? '' : 'no-body'">
+          <router-link :to="'/pages/' + page.id" :class="!!page.body ? '' : 'no-body'" @click="app.toggleNav(false)">
             {{page.title}}
           </router-link>
         </li>
       </template>
       <li class="separator"></li>
       <li>
-        <a href="javascript:;" v-on:click="app.logOut()">
+        <a href="javascript:;" @click="app.logOut()">
           Log Out
         </a>
       </li>

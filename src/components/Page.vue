@@ -2,10 +2,24 @@
   <div class="page" v-if="page">
     <h1>
       {{page.title}}
-      <a :href="app.user.url + page._links.editui" class="edit-link" target="_blank">
-        Edit
-      </a>
     </h1>
+    <ul class="page-nav">
+      <li>
+        <a :href="app.user.url + page._links.editui" class="edit-link" target="_blank">
+          Edit
+        </a>
+      </li>
+      <li>
+        <a :href="app.user.url + page._links.webui" class="edit-link" target="_blank">
+          View
+        </a>
+      </li>
+      <li class="mobile-only">
+        <a href="javascript:;" @click="app.toggleNav(true)" class="edit-link">
+          Search
+        </a>
+      </li>
+    </ul>
     <div v-if="page.body" v-html="body" ref="body"></div>
     <div v-else>
       Loading...
@@ -43,6 +57,8 @@ export default {
       })
 
       if (p.body) { this.updateLinks() }
+
+      window.scrollTo(0, 0)
     }
   },
   computed: {
@@ -85,7 +101,7 @@ export default {
   main {
     line-height: 1.6;
 
-    h1, h2, h3, h4, h5, h6, p, ul, ol, blockquote, table, pre {
+    h1, h2, h3, h4, h5, h6, p, ul, ol, blockquote, table, pre, .page-nav {
       margin-bottom: 1rem;
     }
 
@@ -201,6 +217,19 @@ export default {
 
     .edit-link {
       font-size: 1rem;
+    }
+
+    .page-nav {
+      margin-left: 0;
+
+      li {
+        display: inline-block;
+        margin-right: 1em;
+
+        a {
+          display: inline-block;
+        }
+      }
     }
   }
 </style>
