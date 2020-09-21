@@ -101,12 +101,13 @@ export default {
 
     fetch (path, done) {
       var auth = btoa(`${this.user.email}:${this.user.password}`)
+      var url = `${this.user.url.replace(/\/$/, '')}`
       var proxy = this.user.proxy || ''
 
       if (proxy) { proxy = `${proxy.replace(/\/$/, '')}/` }
 
       return new Promise((resolve, reject) => {
-        fetch(`${proxy}${this.user.url}/rest/api${path}`, {
+        fetch(`${proxy}${url}/rest/api${path}`, {
           headers: {
             Authorization: `Basic ${auth}`
           }

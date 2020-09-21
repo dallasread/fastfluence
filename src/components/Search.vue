@@ -42,6 +42,10 @@ export default {
       DEBOUNCER = setTimeout(() => {
         this.debounceQ = val.toLowerCase()
         this.app.localStore.setItem('q', val)
+
+        // if (!val.length) {
+        //   this.app.$router.push('/')
+        // }
       }, 200)
     }
   },
