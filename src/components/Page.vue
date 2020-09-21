@@ -14,7 +14,7 @@
 </template>
 
 <script>
-const POLL_INTERVAL = 5 * 60 * 1000
+const POLL_INTERVAL = 1 * 60 * 1000
 export default {
   name: 'Page',
   props: ['app'],
