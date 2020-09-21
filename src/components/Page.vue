@@ -178,6 +178,7 @@ export default {
 
     pre {
       padding: 1em;
+      overflow-x: auto;
     }
 
     table {
