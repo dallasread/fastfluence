@@ -9,8 +9,7 @@
           </router-link>
         </li>
       </template>
-      <li class="separator"></li>
-      <li>
+      <li class="footer">
         <a href="javascript:;" @click="app.logOut()">
           Log Out
         </a>
@@ -68,10 +67,5 @@ export default {
 <style lang="scss" scoped>
   .no-body {
     color: #aaa;
-  }
-
-  .separator {
-    padding-bottom: 10em;
-    border-bottom: 1px solid #ddd;
   }
 </style>

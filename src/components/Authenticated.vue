@@ -89,6 +89,7 @@ export default {
     ul {
       text-align: left;
       margin-top: 2.75em;
+      padding-bottom: 5em;
 
       a {
         display: block;
@@ -99,6 +100,11 @@ export default {
           padding: 0;
           color: blue;
         }
+
+        &.router-link-exact-active {
+          background: #777;
+          color: #fff;
+        }
       }
 
       li {
@@ -106,6 +112,10 @@ export default {
 
         &.field, &.actions {
           padding: 1em;
+
+          label {
+            display: block;
+          }
 
           input {
             width: 100%;
@@ -131,8 +141,17 @@ export default {
           }
         }
 
-        label {
-          display: block;
+        &.footer {
+          position: fixed;
+          bottom: 0;
+          border-top: 1px solid #ddd;
+          border-right: 1px solid #ddd;
+          background: #eee;
+          width: 20em;
+
+          @media (max-width: 780px) {
+            width: 100%;
+          }
         }
       }
     }
