@@ -81,12 +81,16 @@ export default {
         var anchors = this.$refs.body.getElementsByTagName('a')
 
         anchors.forEach((anchor) => {
-          var match = anchor.href.match(/\/wiki.+pages\/(\d+)\//)
-          var id = anchor.getAttribute('data-linked-resource-id') || (match ? match[1] : undefined)
-
+          var isPage = anchor.href.match(/\/wiki.+pages\/(\d+)\//)
+          var isWiki = anchor.href.split(/\/wiki/)
+          var id = anchor.getAttribute('data-linked-resource-id') || (isPage ? isPage[1] : undefined)
+          console.log(isWiki)
           if (id) {
             anchor.target = '_self'
             anchor.href = `#/pages/${id}`
+          } else if (isWiki.length > 1) {
+            anchor.href = `${this.app.user.url}${isWiki[1]}`
+            anchor.target = '_blank'
           } else {
             anchor.target = '_blank'
           }
