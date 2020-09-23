@@ -18,20 +18,24 @@ export default {
   mounted () {
     this.app.getLocalPages().then((localPages) => {
       if (localPages && localPages.length) {
-        this.app.addPages(localPages)
-      } else {
-        this.fetchAllPages()
+        this.app.updatePages(localPages)
       }
+
+      this.fetchPageList().then(() => {
+        setInterval(() => {
+          this.fetchPageList()
+        }, 15 * 60 * 1000)
+      })
     })
   },
   methods: {
-    fetchAllPages () {
-      this.app.fetch('/content/?type=page&limit=1000').then((data) => {
+    fetchPageList () {
+      return this.app.fetch('/content/?type=page&limit=1000').then((data) => {
         if (data.size === data.limit) {
           alert('May need to handle pagination.')
         }
 
-        this.app.addPages(data.results)
+        this.app.updatePages(data.results)
       }).catch(() => {
         alert('Could not retrieve pages. Your credentials are incorrect OR your CORS proxy is not working. Log out and try again.')
       })

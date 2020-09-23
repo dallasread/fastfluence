@@ -61,8 +61,25 @@ export default {
       })
     },
 
-    addPages (pages) {
-      this.pages = pages
+    updatePages (pages) {
+      if (!this.pages.length) {
+        this.pages = pages
+      } else {
+        pages.forEach((page) => {
+          var found = this.pages.find((p) => {
+            return page.id === p.id
+          })
+
+          if (found) {
+            for (var key in page) {
+              found[key] = page[key]
+            }
+          } else {
+            this.pages.push(page)
+          }
+        })
+      }
+
       this.setLocalPages(pages)
     },
 
