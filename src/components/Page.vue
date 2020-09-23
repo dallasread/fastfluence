@@ -110,6 +110,10 @@ export default {
       height: 3px;
       background: #ddd;
       border: 0;
+
+      @media (prefers-color-scheme: dark) {
+        background: #444;
+      }
     }
 
     h1, h2, h3, h4, h5, h6 {
@@ -161,6 +165,11 @@ export default {
 
     a {
       color: blue;
+
+      @media (prefers-color-scheme: dark) {
+        font-weight: bold;
+        color: #aa7ee1;
+      }
     }
 
     .update-item-profile {
@@ -171,6 +180,10 @@ export default {
       background: #eee;
       border-radius: 4px;
       font-family: monospace;
+
+      @media (prefers-color-scheme: dark) {
+        background: #333;
+      }
     }
 
     code {
@@ -188,10 +201,18 @@ export default {
       td, th {
         border: 1px solid #ddd;
         padding: 0.5em;
+
+        @media (prefers-color-scheme: dark) {
+          border-color: #444;
+        }
       }
 
       th {
         background: #eee;
+
+        @media (prefers-color-scheme: dark) {
+          background: #333;
+        }
       }
 
       p {

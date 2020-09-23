@@ -221,14 +221,26 @@ html {
   box-sizing: inherit;
 }
 
+html, body {
+  color: #2c3e50;
+
+  @media (prefers-color-scheme: dark) {
+    background: #111;
+    color: rgba(255, 255, 255, 0.7);
+  }
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
 }
 
 input {
   border: 1px solid #eee;
+
+  @media (prefers-color-scheme: dark) {
+    border-color: #444;
+  }
 }
 </style>
