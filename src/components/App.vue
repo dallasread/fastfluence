@@ -80,7 +80,7 @@ export default {
         })
       }
 
-      this.setLocalPages(pages)
+      this.setLocalPages(this.pages)
     },
 
     setLocalPages (pages) {

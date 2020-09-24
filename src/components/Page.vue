@@ -240,6 +240,10 @@ export default {
       :last-child {
         margin-bottom: 0;
       }
+
+      @media (prefers-color-scheme: dark) {
+        background: #444;
+      }
     }
 
     .edit-link {
