@@ -68,7 +68,7 @@ export default {
       })
     },
     body () {
-      return this.page.body.replace(/<a\s/g, '<a target="_blank"')
+      return this.page.body.replace(/<a\s/g, '<a target="_blank"').replace(/style=["']([^"'']+)["']/g, '')
     }
   },
   methods: {
@@ -84,7 +84,7 @@ export default {
           var isPage = anchor.href.match(/\/wiki.+pages\/(\d+)\//)
           var isWiki = anchor.href.split(/\/wiki/)
           var id = anchor.getAttribute('data-linked-resource-id') || (isPage ? isPage[1] : undefined)
-          console.log(isWiki)
+
           if (id) {
             anchor.target = '_self'
             anchor.href = `#/pages/${id}`

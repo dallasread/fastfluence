@@ -165,6 +165,8 @@ export default {
 
             @media (prefers-color-scheme: dark) {
               border-color: #444;
+              background: #444;
+              color: #ddd;
             }
           }
 
