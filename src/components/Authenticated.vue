@@ -37,7 +37,7 @@ export default {
 
         this.app.updatePages(data.results)
       }).catch(() => {
-        alert('Could not retrieve pages. Your credentials are incorrect OR your CORS proxy is not working. Log out and try again.')
+        alert('Could not retrieve pages. Your credentials are incorrect OR your CORS proxy is not working. Try refreshing the page or logging out.')
       })
     }
   }

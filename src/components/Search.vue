@@ -19,6 +19,24 @@
 </template>
 
 <script>
+const countInstances = (content, str) => {
+  return (content || '').toLowerCase().split(str).length - 1
+}
+
+const applyScores = (pages, q) => {
+  pages.forEach((page) => {
+    let score = countInstances(page.title, q) * 20
+
+    score += countInstances(page.body, q)
+
+    Object.defineProperty(page, 'score', {
+      value: score,
+      enumerable: false,
+      configurable: true
+    })
+  })
+}
+
 var DEBOUNCER
 
 export default {
@@ -52,12 +70,14 @@ export default {
     filteredPages () {
       var q = this.debounceQ
 
-      if (q.length <= 2) {
+      if (q.length <= 3) {
         return []
       }
 
+      applyScores(this.app.pages, q)
+
       return this.app.pages.filter((page) => {
-        return page.title.toLowerCase().indexOf(q) !== -1
+        return page.score
       }).sort(this.app.sort)
     }
   }
