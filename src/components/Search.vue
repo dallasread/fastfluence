@@ -6,7 +6,6 @@
         <li v-for="page in filteredPages" :key="page.id">
           <router-link :to="'/pages/' + page.id" :class="!!page.body ? '' : 'no-body'" @click="app.toggleNav(false)">
             {{page.title}}
-            ({{page.score}})
           </router-link>
         </li>
       </template>
