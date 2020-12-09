@@ -4,7 +4,7 @@
     <ul>
       <template v-if="filteredPages.length">
         <li v-for="page in filteredPages" :key="page.id">
-          <router-link :to="'/pages/' + page.id" :class="(!!page.body ? '' : 'no-body') + (page.score > 5 ? '' : 'irrelevant')" @click="app.toggleNav(false)">
+          <router-link :to="'/pages/' + page.id" :class="!!page.body ? '' : 'no-body'" @click="app.toggleNav(false)">
             {{page.title}}
             ({{page.score}})
           </router-link>
@@ -246,7 +246,7 @@ export default {
     }
   }
 
-  .no-body, .irrelevant {
+  .no-body {
     color: #aaa;
 
     @media (prefers-color-scheme: dark) {
