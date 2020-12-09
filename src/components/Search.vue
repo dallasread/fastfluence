@@ -4,8 +4,9 @@
     <ul>
       <template v-if="filteredPages.length">
         <li v-for="page in filteredPages" :key="page.id">
-          <router-link :to="'/pages/' + page.id" :class="!!page.body ? '' : 'no-body'" @click="app.toggleNav(false)">
+          <router-link :to="'/pages/' + page.id" :class="(!!page.body ? '' : 'no-body') + (page.score > 5 ? '' : 'irrelevant')" @click="app.toggleNav(false)">
             {{page.title}}
+            ({{page.score}})
           </router-link>
         </li>
       </template>
@@ -23,15 +24,32 @@ const countInstances = (content, str) => {
   return (content || '').toLowerCase().split(str).length - 1
 }
 
+const WHITESPACE = /\s+/
 const applyScores = (pages, q) => {
-  pages.forEach((page) => {
-    let score = countInstances(page.title, q) * 20
+  const words = q.split(WHITESPACE).filter(function (str) {
+    return str.length > 1
+  })
 
-    score += countInstances(page.body, q)
+  pages.forEach((page) => {
+    let titleScore = 0
+    let bodyScore = 0
+    let score = 0
+
+    words.forEach((word) => {
+      titleScore += countInstances(page.title, word) * 40
+      bodyScore += countInstances(page.body, word)
+    })
+
+    score += titleScore + bodyScore
+
+    if (titleScore && bodyScore) {
+      score *= 2
+    }
 
     Object.defineProperty(page, 'score', {
       value: score,
       enumerable: false,
+      writable: true,
       configurable: true
     })
   })
@@ -228,7 +246,7 @@ export default {
     }
   }
 
-  .no-body {
+  .no-body, .irrelevant {
     color: #aaa;
 
     @media (prefers-color-scheme: dark) {
