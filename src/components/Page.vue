@@ -29,6 +29,7 @@
 
 <script>
 const POLL_INTERVAL = 1 * 60 * 1000
+
 export default {
   name: 'Page',
   props: ['app'],
@@ -52,13 +53,20 @@ export default {
     },
 
     page (p) {
+      let hash = window.location.hash.split('#')[2]
+
       this.app.updatePage(p).then(() => {
         this.updateLinks()
       })
 
       if (p.body) { this.updateLinks() }
 
-      window.scrollTo(0, 0)
+      if (hash) {
+        hash = `${p.title.replace(/\s/g, '')}-${hash.replace(/-/g, '')}`
+        document.getElementById(hash).scrollIntoView()
+      } else {
+        window.scrollTo(0, 0)
+      }
     }
   },
   computed: {
@@ -81,7 +89,7 @@ export default {
         var anchors = this.$refs.body.getElementsByTagName('a')
 
         anchors.forEach((anchor) => {
-          var isPage = anchor.href.match(/\/wiki.+pages\/(\d+)\//)
+          var isPage = anchor.href.match(/\/wiki(.+)pages\/(\d+)\//)
           var isWiki = anchor.href.split(/\/wiki/)
           var id = anchor.getAttribute('data-linked-resource-id') || (isPage ? isPage[1] : undefined)
 
