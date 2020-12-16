@@ -55,15 +55,18 @@ export default {
     page (p) {
       let hash = window.location.hash.split('#')[2]
 
+      hash = `${p.title.replace(/\s/g, '')}-${hash.replace(/---/g, '^').replace(/-/g, '').replace(/\^/g, '-')}`
+
+      const el = document.getElementById(hash)
+
       this.app.updatePage(p).then(() => {
         this.updateLinks()
       })
 
       if (p.body) { this.updateLinks() }
 
-      if (hash) {
-        hash = `${p.title.replace(/\s/g, '')}-${hash.replace(/-/g, '')}`
-        document.getElementById(hash).scrollIntoView()
+      if (hash && el) {
+        el.scrollIntoView()
       } else {
         window.scrollTo(0, 0)
       }
