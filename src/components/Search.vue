@@ -87,7 +87,7 @@ export default {
     filteredPages () {
       var q = this.debounceQ
 
-      if (q.length <= 3) {
+      if (q.length < 2) {
         return []
       }
 
