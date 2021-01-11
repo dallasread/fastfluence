@@ -53,7 +53,7 @@ export default {
     },
 
     page (p) {
-      let hash = window.location.hash.split('#')[2]
+      let hash = window.location.hash.split('#')[2] || ''
 
       hash = `${p.title.replace(/\s/g, '')}-${hash.replace(/---/g, '^').replace(/-/g, '').replace(/\^/g, '-')}`
 
