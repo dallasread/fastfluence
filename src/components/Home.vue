@@ -4,7 +4,7 @@
     <p v-if="app.pages.length"><strong>Your Fastfluence is ready!</strong></p>
     <p>Get started by <a href="javascript:;" @click="app.toggleNav(true)" class="mobile-only">searching</a><span class="desktop-only">searching</span> for something in the sidebar.</p>
     <p>As you view each page, they are stored in this browser's local storage (and kept up to date).</p>
-    <p>As a bonus, you can <a href="javascript:;" @click="app.updateAllPages()">Download All Content</a> now.</p>
+    <p>For the best search results, you can <a href="javascript:;" @click="app.updateAllPages()">Download All Content</a> now.</p>
   </div>
 </template>
 
