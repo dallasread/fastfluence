@@ -108,7 +108,6 @@ export default {
 
     getAncestor (page, ancestors) {
       return this.app.pages.find((p) => {
-        console.log(p.childrenIds)
         return p.childrenIds && p.childrenIds.indexOf(page.id) !== -1
       })
     },
