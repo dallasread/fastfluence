@@ -5,7 +5,7 @@
       <template v-if="filteredPages.length">
         <li v-for="page in filteredPages" :key="page.id">
           <router-link :to="'/pages/' + page.id" :class="!!page.body ? '' : 'no-body'" @click="app.toggleNav(false)">
-            <p>{{page.title}}</p>
+            <p class="title" v-html="highlight(page.title, debounceQ)"></p>
             <p class="description" v-if="page.description">{{page.description}}</p>
           </router-link>
         </li>
@@ -87,7 +87,18 @@ export default {
       }, 200)
     }
   },
+  methods: {
+    highlight (str, q) {
+      return str.replace(this.highlightRegex, (a) => {
+        return `<mark>${a}</mark>`
+      })
+    }
+  },
   computed: {
+    highlightRegex () {
+      return new RegExp(this.debounceQ, 'i')
+    },
+
     filteredPages () {
       var q = this.debounceQ
 
@@ -210,8 +221,12 @@ export default {
         }
 
         &.router-link-exact-active {
-          background: #999;
-          color: #fff;
+          background: #fff;
+          color: #8160AB;
+
+          .title {
+            font-weight: bold;
+          }
 
           @media (prefers-color-scheme: dark) {
             color: #f5d67b;
@@ -221,7 +236,17 @@ export default {
 
         .description {
           font-size: 80%;
-          opacity: 0.5;
+          opacity: 0.65;
+        }
+
+        mark {
+          color: #000;
+          font-weight: bold;
+          background: none;
+
+          @media (prefers-color-scheme: dark) {
+            color: #fff;
+          }
         }
       }
 
