@@ -5,7 +5,8 @@
       <template v-if="filteredPages.length">
         <li v-for="page in filteredPages" :key="page.id">
           <router-link :to="'/pages/' + page.id" :class="!!page.body ? '' : 'no-body'" @click="app.toggleNav(false)">
-            {{page.title}}
+            <p>{{page.title}}</p>
+            <p class="description" v-if="page.description">{{page.description}}</p>
           </router-link>
         </li>
       </template>
@@ -61,7 +62,7 @@ const applyScores = (pages, q) => {
   })
 }
 
-var DEBOUNCER
+let DEBOUNCER
 
 export default {
   name: 'Nav',
@@ -83,10 +84,6 @@ export default {
       DEBOUNCER = setTimeout(() => {
         this.debounceQ = val.toLowerCase()
         this.app.localStore.setItem('q', val)
-
-        // if (!val.length) {
-        //   this.app.$router.push('/')
-        // }
       }, 200)
     }
   },
@@ -150,6 +147,7 @@ export default {
       outline: none;
       padding: 0.5em 1em;
       background: #ddd;
+      z-index: 999;
 
       @media (max-width: 780px) {
         width: 100%;
@@ -219,6 +217,11 @@ export default {
             color: #f5d67b;
             background: #333;
           }
+        }
+
+        .description {
+          font-size: 80%;
+          opacity: 0.5;
         }
       }
 

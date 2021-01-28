@@ -94,6 +94,8 @@ export default {
     updatePage (page) {
       return this.fetch(`/content/${page.id}?expand=body.view`).then((data) => {
         page.body = data.body.view.value
+        page.description = this.truncate(page.body, 130)
+
         this.setLocalPages(this.pages)
       })
     },
@@ -152,6 +154,24 @@ export default {
         this.showNav = override
       } else {
         this.showNav = !this.showNav
+      }
+    },
+
+    truncate (str, maxLength) {
+      const $div = document.createElement('div')
+
+      $div.innerHTML = str
+
+      $div.querySelectorAll('h1, h2, h3, h4, h5, h6, p, li, td, th, strong, b, em, i').forEach((node) => {
+        node.innerHTML += ' '
+      })
+
+      str = $div.innerText.trim()
+
+      if (str.length > maxLength) {
+        return `${str.slice(0, maxLength)}...`
+      } else {
+        return str
       }
     }
   }
