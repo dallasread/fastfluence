@@ -3,19 +3,26 @@
     <h1>
       {{page.title}}
     </h1>
+    <ul class="ancestors-nav">
+      <li v-for="ancestor in ancestors" :key="'ancestors-' + page.id + '-ancestor-' + ancestor.id">
+        <router-link :to="'/pages/' + ancestor.id">
+          {{ ancestor.title }}
+        </router-link>
+      </li>
+    </ul>
     <ul class="page-nav">
       <li>
-        <a :href="app.user.url + page._links.editui" class="edit-link" target="_blank">
+        <a :href="app.user.url + page._links.editui" target="_blank">
           Edit
         </a>
       </li>
       <li>
-        <a :href="app.user.url + page._links.webui" class="edit-link" target="_blank">
+        <a :href="app.user.url + page._links.webui" target="_blank">
           View
         </a>
       </li>
       <li class="mobile-only">
-        <a href="javascript:;" @click="app.toggleNav(true)" class="edit-link">
+        <a href="javascript:;" @click="app.toggleNav(true)">
           Search
         </a>
       </li>
@@ -78,11 +85,34 @@ export default {
         return page.id === this.id
       })
     },
+    ancestors () {
+      return this.getAncestors(this.page)
+    },
     body () {
       return this.page.body.replace(/<a\s/g, '<a target="_blank"').replace(/style=["']([^"'']+)["']/g, '')
     }
   },
   methods: {
+    getAncestors (page, ancestors) {
+      ancestors = ancestors || []
+
+      const ancestor = this.getAncestor(page)
+
+      if (ancestor) {
+        ancestors.unshift(ancestor)
+        this.getAncestors(ancestor, ancestors)
+      }
+
+      return ancestors
+    },
+
+    getAncestor (page, ancestors) {
+      return this.app.pages.find((p) => {
+        console.log(p.childrenIds)
+        return p.childrenIds && p.childrenIds.indexOf(page.id) !== -1
+      })
+    },
+
     updateLinks () {
       if (!this.$refs.body) { return }
 
@@ -113,6 +143,46 @@ export default {
 </script>
 
 <style lang="scss">
+  .ancestors-nav {
+    margin-left: 0;
+
+    li {
+      display: inline-block;
+
+      &:before {
+        content: '»';
+        margin: 0 1em;
+        opacity: 0.5;
+      }
+
+      &:first-child:before {
+        display: none;
+      }
+    }
+  }
+
+  .page-nav {
+    margin-left: 0;
+
+    li {
+      display: inline-block;
+
+      &:before {
+        content: '|';
+        margin: 0 1em;
+        opacity: 0.5;
+      }
+
+      &:first-child:before {
+        display: none;
+      }
+
+      a {
+        display: inline-block;
+      }
+    }
+  }
+
   main {
     line-height: 1.6;
 
@@ -254,23 +324,6 @@ export default {
 
       @media (prefers-color-scheme: dark) {
         background: #444;
-      }
-    }
-
-    .edit-link {
-      font-size: 1rem;
-    }
-
-    .page-nav {
-      margin-left: 0;
-
-      li {
-        display: inline-block;
-        margin-right: 1em;
-
-        a {
-          display: inline-block;
-        }
       }
     }
   }

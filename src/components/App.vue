@@ -91,11 +91,24 @@ export default {
       return this.localStore.getItem('pages')
     },
 
-    updatePage (page) {
+    getPageContent (page) {
       return this.fetch(`/content/${page.id}?expand=body.view`).then((data) => {
-        page.body = data.body.view.value
+        page.body = data.body.view.value || ''
         page.description = this.truncate(page.body, 150)
+      })
+    },
 
+    getPageChildren (page) {
+      return this.fetch(`/content/${page.id}/child/page`).then((data) => {
+        page.childrenIds = data.results.map((p) => p.id)
+      })
+    },
+
+    updatePage (page) {
+      return Promise.all([
+        this.getPageContent(page),
+        this.getPageChildren(page)
+      ]).then(() => {
         this.setLocalPages(this.pages)
       })
     },
