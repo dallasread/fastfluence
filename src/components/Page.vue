@@ -202,7 +202,7 @@ export default {
     }
 
     code {
-      padding: 0.5em;
+      padding: .25em .5em;
     }
 
     pre {
