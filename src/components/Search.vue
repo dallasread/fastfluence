@@ -112,7 +112,7 @@ export default {
     bottom: 0;
     left: 0;
     text-align: center;
-    width: 20em;
+    width: 22em;
     overflow: auto;
     line-height: 1.6;
     border-right: 1px solid #ddd;
@@ -143,7 +143,7 @@ export default {
       position: fixed;
       top: 0;
       left: 0;
-      width: 20em;
+      width: 22em;
       outline: none;
       padding: 0.5em 1em;
       background: #ddd;
@@ -169,7 +169,7 @@ export default {
         border-top: 1px solid #ddd;
         border-right: 1px solid #ddd;
         background: #eee;
-        width: 20em;
+        width: 22em;
         margin-top: 0;
         padding-bottom: 0;
 

@@ -94,7 +94,7 @@ export default {
     updatePage (page) {
       return this.fetch(`/content/${page.id}?expand=body.view`).then((data) => {
         page.body = data.body.view.value
-        page.description = this.truncate(page.body, 130)
+        page.description = this.truncate(page.body, 150)
 
         this.setLocalPages(this.pages)
       })

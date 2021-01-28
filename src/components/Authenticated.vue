@@ -46,7 +46,7 @@ export default {
 
 <style lang="scss">
   main {
-    margin-left: 20em;
+    margin-left: 22em;
     padding: 2em;
 
     @media (max-width: 780px) {
