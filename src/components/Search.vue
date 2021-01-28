@@ -5,7 +5,7 @@
       <template v-if="filteredPages.length">
         <li v-for="page in filteredPages" :key="page.id">
           <router-link :to="'/pages/' + page.id" :class="!!page.body ? '' : 'no-body'" @click="app.toggleNav(false)">
-            <p class="title" v-html="highlight(page.title, debounceQ)"></p>
+            <p class="title" v-html="highlight(page.title, highlightRegex)"></p>
             <p class="description" v-if="page.description">{{page.description}}</p>
           </router-link>
         </li>
@@ -88,8 +88,8 @@ export default {
     }
   },
   methods: {
-    highlight (str, q) {
-      return str.replace(this.highlightRegex, (a) => {
+    highlight (str, regex) {
+      return str.replace(regex, (a) => {
         return `<mark>${a}</mark>`
       })
     }
