@@ -9,7 +9,14 @@
           </router-link>
         </li>
       </template>
-      <li class="footer">
+    </ul>
+    <ul class="footer">
+      <li>
+        <router-link to="/">
+          Welcome
+        </router-link>
+      </li>
+      <li>
         <a href="javascript:;" @click="app.logOut()">
           Log Out
         </a>
@@ -112,10 +119,10 @@ export default {
     overflow: auto;
     line-height: 1.6;
     border-right: 1px solid #ddd;
-    background: #eee;
+    background: #fff;
 
     @media (prefers-color-scheme: dark) {
-      background: #111;
+      background: #000;
       border-right: 1px solid #444;
     }
 
@@ -158,9 +165,45 @@ export default {
       margin-top: 2.75em;
       padding-bottom: 5em;
 
+      &.footer {
+        position: fixed;
+        bottom: 0;
+        border-top: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        background: #eee;
+        width: 20em;
+        margin-top: 0;
+        padding-bottom: 0;
+
+        @media (max-width: 780px) {
+          width: 100%;
+        }
+
+        @media (prefers-color-scheme: dark) {
+          border-color: #444;
+          background: #111;
+        }
+
+        li {
+          &:last-child {
+            border-bottom: 0;
+          }
+
+          @media (prefers-color-scheme: dark) {
+            border-color: #444;
+            background: #111;
+          }
+        }
+      }
+
       a {
         display: block;
         padding: 0.5em 1em;
+        background: #eee;
+
+        @media (prefers-color-scheme: dark) {
+          background: #111;
+        }
 
         &.inline {
           display: inline;
@@ -221,24 +264,6 @@ export default {
             display: inline-block;
             color: blue;
             padding: 0;
-          }
-        }
-
-        &.footer {
-          position: fixed;
-          bottom: 0;
-          border-top: 1px solid #ddd;
-          border-right: 1px solid #ddd;
-          background: #eee;
-          width: 20em;
-
-          @media (max-width: 780px) {
-            width: 100%;
-          }
-
-          @media (prefers-color-scheme: dark) {
-            border-color: #444;
-            background: #111;
           }
         }
       }
