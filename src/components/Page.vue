@@ -194,7 +194,7 @@ export default {
   main {
     line-height: 1.6;
 
-    h1, h2, h3, h4, h5, h6, p, ul, ol, blockquote, table, pre, .page-nav, [data-macro-name="note"] {
+    h1, h2, h3, h4, h5, h6, p, ul, ol, blockquote, table, pre, .page-nav, [data-macro-name], .panel {
       margin-bottom: 1rem;
     }
 
@@ -321,8 +321,8 @@ export default {
       font-style: oblique;
     }
 
-    [data-macro-name="note"] {
-      background: #FFF5E7;
+    [data-macro-name], .panel {
+      background: #fff5e7;
       padding: 1em;
       border-radius: 4px;
 
@@ -332,6 +332,26 @@ export default {
 
       @media (prefers-color-scheme: dark) {
         background: #444;
+      }
+
+      &[data-macro-name="warning"], &[data-macro-name="error"] {
+        border-left: 5px solid #ad1e04;
+
+        @media (prefers-color-scheme: light) {
+          background: #fdd3c8;
+        }
+      }
+
+      &[data-macro-name="note"] {
+        border-left: 5px solid #f5d67b;
+      }
+
+      &[data-macro-name="success"] {
+        border-left: 5px solid #17b450;
+
+        @media (prefers-color-scheme: light) {
+          background: #dcfee0;
+        }
       }
     }
   }
