@@ -27,7 +27,7 @@
         </a>
       </li>
     </ul>
-    <div v-if="page.body" v-html="body" ref="body"></div>
+    <div v-if="body" v-html="body" ref="body"></div>
     <div v-else>
       Loading...
     </div>
@@ -66,11 +66,7 @@ export default {
 
       const el = document.getElementById(hash)
 
-      this.app.updatePage(p).then(() => {
-        this.updateLinks()
-      })
-
-      if (p.body) { this.updateLinks() }
+      this.app.updatePage(p)
 
       if (hash && el) {
         el.scrollIntoView()
@@ -89,7 +85,46 @@ export default {
       return this.getAncestors(this.page)
     },
     body () {
-      return this.page.body.replace(/<a\s/g, '<a target="_blank"').replace(/style=["']([^"'']+)["']/g, '')
+      if (!this.page.body) {
+        return ''
+      }
+
+      var $wrapper = document.createElement('div')
+
+      $wrapper.innerHTML = this.page.body
+
+      var anchors = $wrapper.getElementsByTagName('a')
+
+      anchors.forEach((anchor) => {
+        if (anchor.fixed) {
+          return
+        }
+
+        anchor.fixed = true
+
+        var id = anchor.getAttribute('data-linked-resource-id')
+        var page = (anchor.href.match(/\/pages\/(\d+)\//) || [])[1]
+        var startsWithHash = anchor.href[0] === '#'
+
+        if (id) {
+          anchor.target = '_self'
+          anchor.href = `#/pages/${id}`
+        } else if (page) {
+          anchor.target = '_self'
+          anchor.href = `#/pages/${page}`
+        } else if (startsWithHash) {
+          anchor.target = '_self'
+        } else {
+          console.log(anchor.href, id, page, startsWithHash)
+          anchor.target = '_blank'
+        }
+      })
+
+      $wrapper.querySelectorAll('*').forEach((el) => {
+        el.style = ''
+      })
+
+      return $wrapper.innerHTML
     }
   },
   methods: {
@@ -110,32 +145,6 @@ export default {
       return this.app.pages.find((p) => {
         return p.childrenIds && p.childrenIds.indexOf(page.id) !== -1
       })
-    },
-
-    updateLinks () {
-      if (!this.$refs.body) { return }
-
-      document.title = this.page.title
-
-      setTimeout(() => {
-        var anchors = this.$refs.body.getElementsByTagName('a')
-
-        anchors.forEach((anchor) => {
-          var isPage = anchor.href.match(/\/wiki(.+)pages\/(\d+)\//)
-          var isWiki = anchor.href.split(/\/wiki/)
-          var id = anchor.getAttribute('data-linked-resource-id') || (isPage ? isPage[1] : undefined)
-
-          if (id) {
-            anchor.target = '_self'
-            anchor.href = `#/pages/${id}`
-          } else if (isWiki.length > 1) {
-            anchor.href = `${this.app.user.url}${isWiki[1]}`
-            anchor.target = '_blank'
-          } else {
-            anchor.target = '_blank'
-          }
-        })
-      }, 50)
     }
   }
 }
