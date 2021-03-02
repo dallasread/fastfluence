@@ -105,17 +105,28 @@ export default {
         var id = anchor.getAttribute('data-linked-resource-id')
         var page = (anchor.href.match(/\/pages\/(\d+)\//) || [])[1]
         var startsWithHash = anchor.href[0] === '#'
+        var wikiLink = (anchor.href.match(/(\/spaces\/[^#]+)/) || [])[0]
 
-        if (id) {
+        if (startsWithHash) {
+          anchor.target = '_self'
+        } else if (id) {
           anchor.target = '_self'
           anchor.href = `#/pages/${id}`
         } else if (page) {
           anchor.target = '_self'
           anchor.href = `#/pages/${page}`
-        } else if (startsWithHash) {
-          anchor.target = '_self'
+        } else if (wikiLink) {
+          var found = this.app.pages.find((page) => {
+            return page._links.webui === wikiLink
+          })
+
+          if (found) {
+            anchor.href = `#/pages/${found.id}`
+            anchor.target = '_self'
+          } else {
+            anchor.target = '_blank'
+          }
         } else {
-          console.log(anchor.href, id, page, startsWithHash)
           anchor.target = '_blank'
         }
       })
