@@ -61,10 +61,12 @@ export default {
 
     page (p) {
       let hash = window.location.hash.split('#')[2] || ''
+      let el = document.getElementById(hash)
 
-      hash = `${p.title.replace(/\s/g, '')}-${hash.replace(/---/g, '^').replace(/-/g, '').replace(/\^/g, '-')}`
-
-      const el = document.getElementById(hash)
+      if (!el) {
+        hash = `${p.title.replace(/\s/g, '')}-${hash.replace(/---/g, '^').replace(/-/g, '').replace(/\^/g, '-')}`
+        el = document.getElementById(hash)
+      }
 
       this.app.updatePage(p)
 
@@ -105,23 +107,25 @@ export default {
         var id = anchor.getAttribute('data-linked-resource-id')
         var page = (anchor.href.match(/\/pages\/(\d+)\//) || [])[1]
         var startsWithHash = anchor.href[0] === '#'
-        var wikiLink = (anchor.href.match(/(\/spaces\/[^#]+)/) || [])[0]
+        var wikiURL = (anchor.href.match(/(\/spaces\/[^#]+)/) || [])[0]
+        var hashSplat = anchor.href.split('#')
+        var hash = hashSplat[1] ? `#${hashSplat[1]}` : ''
 
         if (startsWithHash) {
           anchor.target = '_self'
         } else if (id) {
           anchor.target = '_self'
-          anchor.href = `#/pages/${id}`
+          anchor.href = `#/pages/${id}${hash}`
         } else if (page) {
           anchor.target = '_self'
-          anchor.href = `#/pages/${page}`
-        } else if (wikiLink) {
+          anchor.href = `#/pages/${page}${hash}`
+        } else if (wikiURL) {
           var found = this.app.pages.find((page) => {
-            return page._links.webui === wikiLink
+            return page._links.webui === wikiURL
           })
 
           if (found) {
-            anchor.href = `#/pages/${found.id}`
+            anchor.href = `#/pages/${found.id}${hash}`
             anchor.target = '_self'
           } else {
             anchor.target = '_blank'
