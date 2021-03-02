@@ -194,7 +194,7 @@ export default {
   main {
     line-height: 1.6;
 
-    h1, h2, h3, h4, h5, h6, p, ul, ol, blockquote, table, pre, .page-nav, [data-macro-name], .panel {
+    h1, h2, h3, h4, h5, h6, p, ul, ol, blockquote, table, pre, .page-nav, [data-macro-name="note"], [data-macro-name="warning"], [data-macro-name="error"], [data-macro-name="success"], .panel {
       margin-bottom: 1rem;
     }
 
@@ -321,7 +321,7 @@ export default {
       font-style: oblique;
     }
 
-    [data-macro-name], .panel {
+    [data-macro-name="note"], [data-macro-name="warning"], [data-macro-name="error"], [data-macro-name="success"], .panel {
       background: #fff5e7;
       padding: 1em;
       border-radius: 4px;
