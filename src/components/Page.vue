@@ -139,6 +139,10 @@ export default {
         el.style = ''
       })
 
+      $wrapper.querySelectorAll('[data-highlight-colour]').forEach((el) => {
+        el.style = `border-left: 7px solid ${el.getAttribute('data-highlight-colour')}`
+      })
+
       return $wrapper.innerHTML
     }
   },
@@ -367,6 +371,17 @@ export default {
         @media (prefers-color-scheme: light) {
           background: #dcfee0;
         }
+      }
+    }
+
+    [data-username] {
+      display: inline-block;
+      padding: 1px 5px;
+      border-radius: 3px;
+      background: rgba(0, 0, 0, 0.1);
+
+      @media (prefers-color-scheme: dark) {
+        background: rgba(255, 255, 255, 0.1);
       }
     }
   }
