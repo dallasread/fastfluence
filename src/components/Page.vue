@@ -143,6 +143,14 @@ export default {
         el.style = `border-left: 7px solid ${el.getAttribute('data-highlight-colour')}`
       })
 
+      $wrapper.querySelectorAll('.inline-task-list').forEach((el) => {
+        el.querySelectorAll('li').forEach((li) => {
+          const isChecked = li.className.indexOf('checked') !== -1
+          const checkedAttr = isChecked ? 'checked="checked"' : ''
+          li.innerHTML = `<input type="checkbox" ${checkedAttr}> ${li.innerHTML}`
+        })
+      })
+
       return $wrapper.innerHTML
     }
   },
@@ -379,6 +387,15 @@ export default {
         @media (prefers-color-scheme: light) {
           background: #dcfee0;
         }
+      }
+    }
+
+    .inline-task-list {
+      list-style: none;
+      margin-left: 0px;
+
+      input[type="checkbox"] {
+        margin-right: 0.3em;
       }
     }
   }
