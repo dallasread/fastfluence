@@ -213,7 +213,7 @@ export default {
   main {
     line-height: 1.6;
 
-    h1, h2, h3, h4, h5, h6, p, ul, ol, blockquote, table, pre, .page-nav, [data-macro-name="note"], [data-macro-name="warning"], [data-macro-name="error"], [data-macro-name="success"], .panel {
+    h1, h2, h3, h4, h5, h6, p, ul, ol, blockquote, table, pre, .page-nav, [data-macro-name="note"], [data-macro-name="warning"], [data-macro-name="error"], [data-macro-name="success"] {
       margin-bottom: 1rem;
     }
 
@@ -288,14 +288,22 @@ export default {
       display: none;
     }
 
-    pre, code {
+    pre, code, [data-username] {
       background: #eee;
       border-radius: 4px;
-      font-family: monospace;
 
       @media (prefers-color-scheme: dark) {
         background: #333;
       }
+    }
+
+    [data-username] {
+      display: inline;
+      padding: 0.05em 0.25em;
+    }
+
+    pre, code {
+      font-family: monospace;
     }
 
     code {
@@ -340,7 +348,7 @@ export default {
       font-style: oblique;
     }
 
-    [data-macro-name="note"], [data-macro-name="warning"], [data-macro-name="error"], [data-macro-name="success"], .panel {
+    [data-macro-name="note"], [data-macro-name="warning"], [data-macro-name="error"], [data-macro-name="success"] {
       background: #fff5e7;
       padding: 1em;
       border-radius: 4px;
@@ -371,17 +379,6 @@ export default {
         @media (prefers-color-scheme: light) {
           background: #dcfee0;
         }
-      }
-    }
-
-    [data-username] {
-      display: inline-block;
-      padding: 1px 5px;
-      border-radius: 3px;
-      background: rgba(0, 0, 0, 0.1);
-
-      @media (prefers-color-scheme: dark) {
-        background: rgba(255, 255, 255, 0.1);
       }
     }
   }
