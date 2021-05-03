@@ -4,7 +4,7 @@
       <slot></slot>
     </div>
     <div v-else>
-      <div class="search">
+      <div class="search show-nav">
         <h2>Log In</h2>
         <form v-on:submit="logIn(user)">
           <ul>
