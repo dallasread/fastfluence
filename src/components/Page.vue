@@ -87,7 +87,7 @@ export default {
       })
     },
     isArchived () {
-      return page.status === 'archived'
+      return this.page.status === 'archived'
     },
     ancestors () {
       return this.getAncestors(this.page)
