@@ -27,6 +27,9 @@
         </a>
       </li>
     </ul>
+    <p v-if="isArchived" data-macro-name="error">
+      This page is archived.
+    </p>
     <div v-if="body" v-html="body" ref="body"></div>
     <div v-else>
       Loading...
@@ -82,6 +85,9 @@ export default {
       return this.app.pages.find((page) => {
         return page.id === this.id
       })
+    },
+    isArchived () {
+      return page.status === 'archived'
     },
     ancestors () {
       return this.getAncestors(this.page)
