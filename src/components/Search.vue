@@ -124,7 +124,8 @@ export default {
     left: 0;
     text-align: center;
     width: 22em;
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
     line-height: 1.6;
     border-right: 1px solid #ddd;
     background: #fff;
