@@ -145,6 +145,14 @@ export default {
         el.style = ''
       })
 
+      $wrapper.querySelectorAll('img').forEach((el) => {
+        const wikiURL = el.src.match(/\/wiki(\/.+)/)[1]
+
+        if (wikiURL) {
+          el.src = `${this.app.user.url}${wikiURL}`
+        }
+      })
+
       $wrapper.querySelectorAll('[data-highlight-colour]').forEach((el) => {
         el.style = `border-left: 7px solid ${el.getAttribute('data-highlight-colour')}`
       })
