@@ -63,7 +63,8 @@ export default {
     },
 
     page (p) {
-      let hash = window.location.hash.split('#')[2] || ''
+      const splat = window.location.hash
+      let hash = splat.split('#').slice(2, splat.length).join('#') || ''
       let el = document.getElementById(hash)
 
       if (!el) {
