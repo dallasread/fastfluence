@@ -242,7 +242,7 @@ export default {
   main {
     line-height: 1.6;
 
-    h1, h2, h3, h4, h5, h6, p, ul, ol, blockquote, table, pre, .page-nav, [data-macro-name="note"], [data-macro-name="warning"], [data-macro-name="error"], [data-macro-name="success"], [data-macro-name="panel"] {
+    h1, h2, h3, h4, h5, h6, p, ul, ol, blockquote, table, pre, .page-nav, [data-macro-name="note"], [data-macro-name="warning"], [data-macro-name="error"], [data-macro-name="success"], [data-macro-name="info"], [data-macro-name="panel"] {
       margin-bottom: 1rem;
     }
 
