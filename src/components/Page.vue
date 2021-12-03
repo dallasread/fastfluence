@@ -311,7 +311,7 @@ export default {
       display: none;
     }
 
-    pre, code, [data-username] {
+    pre, code, [data-username], .aui-lozenge {
       background: #eee;
       border-radius: 4px;
 
@@ -340,6 +340,7 @@ export default {
 
     table {
       width: 100%;
+     table-layout: fixed;
 
       td, th {
         border: 1px solid #ddd;
@@ -369,6 +370,38 @@ export default {
 
     i, em {
       font-style: oblique;
+    }
+
+    .aui-lozenge {
+      font-size: 0.85em;
+      font-weight: bold;
+      padding: 0.15em 0.5em;
+      background: #eee;
+      display: inline;
+
+      @media (prefers-color-scheme: dark) {
+        background: #333;
+      }
+
+      &.aui-lozenge-success {
+        background: #17b450;
+        color: #dcfee0;
+
+        @media (prefers-color-scheme: light) {
+          background: #dcfee0;
+          color: #17b450;
+        }
+      }
+
+      &.aui-lozenge-complete {
+        background: #35c9f6;
+        color: #cff0fa;
+
+        @media (prefers-color-scheme: light) {
+          background: #cff0fa;
+          color: #35c9f6;
+        }
+      }
     }
 
     [data-macro-name="panel"],
