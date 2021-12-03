@@ -236,7 +236,7 @@ export default {
   main {
     line-height: 1.6;
 
-    h1, h2, h3, h4, h5, h6, p, ul, ol, blockquote, table, pre, .page-nav, [data-macro-name="note"], [data-macro-name="warning"], [data-macro-name="error"], [data-macro-name="success"] {
+    h1, h2, h3, h4, h5, h6, p, ul, ol, blockquote, table, pre, .page-nav, [data-macro-name="note"], [data-macro-name="warning"], [data-macro-name="error"], [data-macro-name="success"], [data-macro-name="panel"] {
       margin-bottom: 1rem;
     }
 
@@ -371,7 +371,12 @@ export default {
       font-style: oblique;
     }
 
-    [data-macro-name="note"], [data-macro-name="warning"], [data-macro-name="error"], [data-macro-name="success"] {
+    [data-macro-name="panel"],
+    [data-macro-name="note"],
+    [data-macro-name="info"],
+    [data-macro-name="warning"],
+    [data-macro-name="error"],
+    [data-macro-name="success"] {
       background: #fff5e7;
       padding: 1em;
       border-radius: 4px;
@@ -381,7 +386,15 @@ export default {
       }
 
       @media (prefers-color-scheme: dark) {
-        background: #444;
+        background: #333;
+      }
+
+      &[data-macro-name="panel"] {
+        border-left: 5px solid #803bc7;
+
+        @media (prefers-color-scheme: light) {
+          background: #e5e8fd;
+        }
       }
 
       &[data-macro-name="warning"], &[data-macro-name="error"] {
@@ -393,7 +406,19 @@ export default {
       }
 
       &[data-macro-name="note"] {
-        border-left: 5px solid #f5d67b;
+        border-left: 5px solid #35c9f6;
+
+        @media (prefers-color-scheme: light) {
+          background: #cff0fa;
+        }
+      }
+
+      &[data-macro-name="info"] {
+        border-left: 5px solid #35c9f6;
+
+        @media (prefers-color-scheme: light) {
+          background: #cff0fa;
+        }
       }
 
       &[data-macro-name="success"] {
