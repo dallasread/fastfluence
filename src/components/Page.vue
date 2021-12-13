@@ -336,6 +336,12 @@ export default {
       list-style: disc;
     }
 
+    li {
+      ul, ol {
+        margin-top: -1rem;
+      }
+    }
+
     a {
       color: blue;
 
