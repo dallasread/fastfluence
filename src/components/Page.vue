@@ -98,7 +98,7 @@ export default {
           this.app.fetchResource(`/content/${this.page.id}/child/attachment/${resourceId}/download`)
             .then((src) => {
               el.className = ''
-              el.src = 'src'
+              el.src = src
             })
         }
       })
