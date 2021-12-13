@@ -81,6 +81,15 @@ export default {
       } else {
         window.scrollTo(0, 0)
       }
+
+      this.$el.querySelectorAll('img').forEach((el) => {
+        const resourceId = el.getAttribute('data-linked-resource-id')
+
+        if (resourceId) {
+          this.app.fetchResource(`/content/${this.page.id}/child/attachment/${resourceId}/download`)
+            .then((src) => { el.src = src })
+        }
+      })
     }
   },
   computed: {
@@ -146,14 +155,6 @@ export default {
 
       $wrapper.querySelectorAll('*').forEach((el) => {
         el.style = ''
-      })
-
-      $wrapper.querySelectorAll('img').forEach((el) => {
-        const wikiURL = el.src.match(/\/wiki(\/.+)/)[1]
-
-        if (wikiURL) {
-          el.src = `${this.app.user.url}${wikiURL}`
-        }
       })
 
       $wrapper.querySelectorAll('[data-highlight-colour]').forEach((el) => {

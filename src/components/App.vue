@@ -13,6 +13,8 @@ import localforage from 'localforage'
 import Login from '@/components/Login.vue'
 import Authenticated from '@/components/Authenticated.vue'
 
+const URL_CREATOR = window.URL || window.webkitURL
+
 export default {
   name: 'App',
   components: {
@@ -130,6 +132,24 @@ export default {
           }, 1000)
         })
       }
+    },
+
+    fetchResource (path, done) {
+      var auth = btoa(`${this.user.email}:${this.user.password}`)
+      var url = `${this.user.url.replace(/\/$/, '')}`
+      var proxy = this.user.proxy || ''
+
+      if (proxy) { proxy = `${proxy.replace(/\/$/, '')}/` }
+
+      return new Promise((resolve, reject) => {
+        fetch(`${proxy}${url}/rest/api${path}`, {
+          headers: {
+            Authorization: `Basic ${auth}`
+          }
+        }).then((response) => {
+          response.blob().then((data) => resolve(URL_CREATOR.createObjectURL(data)))
+        }).catch(reject)
+      })
     },
 
     fetch (path, done) {
