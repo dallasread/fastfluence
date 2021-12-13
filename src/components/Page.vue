@@ -363,14 +363,6 @@ export default {
       @media (prefers-color-scheme: dark) {
         background: #333;
       }
-
-      &:before {
-        content: 'Loading resource...';
-        text-align: center;
-        display: block;
-        margin-top: calc(50% - 3rem);
-        font-style: oblique;
-      }
     }
 
     table {
