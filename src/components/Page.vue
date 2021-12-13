@@ -185,6 +185,15 @@ export default {
         hljs.highlightElement(el)
       })
 
+      $wrapper.querySelectorAll('[data-emoji-id]').forEach((el) => {
+        const id = el.getAttribute('data-emoji-id')
+        const emoji = document.createElement('span')
+
+        emoji.innerHTML = `&#x${id};`
+        el.parentNode.insertBefore(emoji, el.nextSibling)
+        el.parentNode.removeChild(el)
+      })
+
       return $wrapper.innerHTML
     }
   },
