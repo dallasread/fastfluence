@@ -86,8 +86,20 @@ export default {
         const resourceId = el.getAttribute('data-linked-resource-id')
 
         if (resourceId) {
+          const height = el.getAttribute('data-height')
+          const width = el.getAttribute('data-width')
+
+          if (height && width) {
+            el.className = 'loading'
+            el.style.aspectRatio = parseInt(width) / parseInt(height)
+            el.style.width = '100%'
+          }
+
           this.app.fetchResource(`/content/${this.page.id}/child/attachment/${resourceId}/download`)
-            .then((src) => { el.src = src })
+            .then((src) => {
+              el.className = ''
+              el.src = 'src'
+            })
         }
       })
     }
@@ -343,6 +355,14 @@ export default {
     pre {
       padding: 1em;
       overflow-x: auto;
+    }
+
+    img.loading {
+      background: #eee;
+
+      @media (prefers-color-scheme: dark) {
+        background: #333;
+      }
     }
 
     table {
