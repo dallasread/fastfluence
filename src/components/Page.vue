@@ -82,6 +82,10 @@ export default {
         window.scrollTo(0, 0)
       }
 
+      if (typeof this.$el.querySelectorAll !== 'function') {
+        return
+      }
+
       this.$el.querySelectorAll('img').forEach((el) => {
         const resourceId = el.getAttribute('data-linked-resource-id')
 
@@ -186,12 +190,18 @@ export default {
       })
 
       $wrapper.querySelectorAll('[data-emoji-id]').forEach((el) => {
-        const id = el.getAttribute('data-emoji-id')
         const emoji = document.createElement('span')
+        const wikiURL = el.src.match(/\/wiki(\/.+)/)[1]
+        const id = el.getAttribute('data-emoji-id') || ''
+        // const fallback = el.getAttribute('data-emoji-fallback')
 
-        emoji.innerHTML = `&#x${id};`
-        el.parentNode.insertBefore(emoji, el.nextSibling)
-        el.parentNode.removeChild(el)
+        if (isNaN(Number(`0x${id}`))) {
+          el.src = `${this.app.user.url}${wikiURL}`
+        } else if (wikiURL) {
+          emoji.innerHTML = `&#x${id};`
+          el.parentNode.insertBefore(emoji, el.nextSibling)
+          el.parentNode.removeChild(el)
+        }
       })
 
       return $wrapper.innerHTML
