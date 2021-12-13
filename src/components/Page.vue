@@ -96,13 +96,14 @@ export default {
           if (height && width) {
             el.className = 'loading'
             el.style.aspectRatio = parseInt(width) / parseInt(height)
-            el.style.width = '100%'
+            el.style.width = `${width}px`
+            el.style.maxWidth = '100%'
           }
 
           this.app.fetchResource(`/content/${this.page.id}/child/attachment/${resourceId}/download`)
             .then((src) => {
-              el.className = ''
               el.src = src
+              el.className = ''
             })
         }
       })
