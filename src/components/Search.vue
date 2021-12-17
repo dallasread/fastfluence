@@ -43,7 +43,9 @@ const applyScores = (pages, q) => {
     let score = 0
 
     words.forEach((word) => {
-      titleScore += countInstances(page.title, word) * 40
+      const firstWordMultiplier = page.title.toLowerCase().indexOf(word) === 0 ? 100 : 1
+
+      titleScore += countInstances(page.title, word) * 100 * firstWordMultiplier
       bodyScore += countInstances(page.body, word)
     })
 
