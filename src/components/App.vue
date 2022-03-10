@@ -34,8 +34,15 @@ export default {
       })
     }
   },
+  watch: {
+    '$route' ($route) {
+      if ($route.path !== '/') {
+        this.localStore.setItem('latestPage', $route.path)
+      }
+    }
+  },
   mounted () {
-    window.app = this
+    window.fastFluence = this
     this.restoreUser()
   },
   methods: {
@@ -43,6 +50,7 @@ export default {
       this.localStore.getItem('auth').then((auth) => {
         if (auth) {
           this.logIn(JSON.parse(atob(auth)))
+          this.restorePage()
         }
 
         this.loading = false
@@ -60,6 +68,18 @@ export default {
         this.localStore.removeItem('auth').then(() => {
           window.location.reload()
         })
+      })
+    },
+
+    restorePage () {
+      if (this.$route.path !== '/') {
+        return
+      }
+
+      this.localStore.getItem('latestPage').then((page) => {
+        if (page) {
+          this.$router.push(page)
+        }
       })
     },
 
