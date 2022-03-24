@@ -26,9 +26,10 @@
           View
         </a>
       </li>
-      <li class="mobile-only">
-        <a href="javascript:;" @click="app.toggleNav(true)">
-          Search
+      <li>
+        <a href="javascript:;" @click="copy(app.user.url + page._links.webui)">
+          <span v-if="isCopying">Copied</span>
+          <span v-else>Copy Link</span>
         </a>
       </li>
     </ul>
@@ -52,7 +53,8 @@ export default {
   props: ['app'],
   data () {
     return {
-      id: ''
+      id: '',
+      isCopying: false
     }
   },
   mounted () {
