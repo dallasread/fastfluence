@@ -138,6 +138,7 @@ export default {
     }
 
     @media (max-width: 780px) {
+      position: static;
       width: auto;
       right: 0;
       display: none;
