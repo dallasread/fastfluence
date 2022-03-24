@@ -119,6 +119,18 @@ export default {
 </script>
 
 <style lang="scss">
+  .show-nav {
+    @media (max-width: 780px) {
+      .search {
+        display: block;
+      }
+
+      main {
+        display: none;
+      }
+    }
+  }
+
   .search {
     position: fixed;
     top: 0;
@@ -142,10 +154,6 @@ export default {
       width: auto;
       right: 0;
       display: none;
-
-      &.show-nav {
-        display: block;
-      }
     }
 
     h2 {

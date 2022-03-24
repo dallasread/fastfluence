@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <search :app="app" :class="app.showNav ? 'show-nav' : ''" />
+  <div :class="app.showNav ? 'show-nav' : ''">
+    <search :app="app" />
     <main>
       <slot :app="app"></slot>
     </main>

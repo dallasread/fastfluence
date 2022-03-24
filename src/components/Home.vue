@@ -11,6 +11,11 @@
 <script>
 export default {
   name: 'Welcome',
-  props: ['app']
+  props: ['app'],
+  mounted () {
+    if (this.$route.path === '/') {
+      this.app.toggleNav(false)
+    }
+  }
 }
 </script>
