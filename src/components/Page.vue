@@ -29,7 +29,7 @@
       <li>
         <a href="javascript:;" @click="copy(app.user.url + page._links.webui)">
           <span v-if="isCopying">Copied</span>
-          <span v-else>Copy Link</span>
+          <span v-else>Copy URL</span>
         </a>
       </li>
     </ul>
