@@ -9,6 +9,9 @@
 
 <script>
 import Search from '@/components/Search.vue'
+
+const LIMIT = 1000
+
 export default {
   name: 'Authenticated',
   props: ['app'],
@@ -29,13 +32,15 @@ export default {
     })
   },
   methods: {
-    fetchPageList () {
-      return this.app.fetch('/content/?type=page&limit=1000').then((data) => {
-        if (data.size === data.limit) {
-          alert('May need to handle pagination.')
-        }
+    fetchPageList (n = 0, results = []) {
+      return this.app.fetch(`/content/?type=page&limit=${LIMIT}&start=${n * LIMIT}`).then((data) => {
+        const newResults = results.concat(data.results)
 
-        this.app.updatePages(data.results)
+        if (data.size === data.limit) {
+          this.fetchPageList(n + 1, newResults)
+        } else {
+          this.app.updatePages(newResults)
+        }
       }).catch(() => {
         alert('Could not retrieve pages. Your credentials are incorrect OR your CORS proxy is not working. Try refreshing the page or logging out.')
       })
