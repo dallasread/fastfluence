@@ -119,17 +119,17 @@ export default {
 </script>
 
 <style lang="scss">
-  .show-nav {
-    @media (max-width: 780px) {
-      .search {
-        display: block;
-      }
+  // .show-nav {
+  //   @media (max-width: 780px) {
+  //     .search {
+  //       display: block;
+  //     }
 
-      main {
-        display: none;
-      }
-    }
-  }
+  //     main {
+  //       display: none;
+  //     }
+  //   }
+  // }
 
   .search {
     position: fixed;
@@ -153,7 +153,6 @@ export default {
       position: static;
       width: auto;
       right: 0;
-      display: none;
     }
 
     h2 {

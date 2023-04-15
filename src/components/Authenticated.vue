@@ -1,6 +1,6 @@
 <template>
-  <div :class="app.showNav ? 'show-nav' : ''">
-    <search :app="app" />
+  <div>
+    <search v-if="app.showNav" :app="app" />
     <main>
       <slot :app="app"></slot>
     </main>
