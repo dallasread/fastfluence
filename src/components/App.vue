@@ -51,6 +51,8 @@ export default {
         if (auth) {
           this.logIn(JSON.parse(atob(auth)))
           this.restorePage()
+        } else {
+          this.showNav = true
         }
 
         this.loading = false
