@@ -4,7 +4,7 @@
     <ul>
       <template v-if="filteredPages.length">
         <li v-for="page in filteredPages" :key="page.id">
-          <router-link :to="'/pages/' + page.id" :class="!!page.body ? '' : 'no-body'" @click="app.toggleNav(false)">
+          <router-link :to="'/pages/' + page.id" :class="!!page.body ? '' : 'no-body'" @click="app.toggleNavIfMobile(false)">
             <p class="title" v-html="highlight(page.title, highlightRegex)"></p>
             <p class="description" v-if="page.description">{{page.description}}</p>
           </router-link>
@@ -119,18 +119,6 @@ export default {
 </script>
 
 <style lang="scss">
-  // .show-nav {
-  //   @media (max-width: 780px) {
-  //     .search {
-  //       display: block;
-  //     }
-
-  //     main {
-  //       display: none;
-  //     }
-  //   }
-  // }
-
   .search {
     position: fixed;
     top: 0;

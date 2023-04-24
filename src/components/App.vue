@@ -212,6 +212,12 @@ export default {
       }
     },
 
+    toggleNavIfMobile (override) {
+      if (window.outerWidth < 781) {
+        this.toggleNav(override)
+      }
+    },
+
     truncate (str, maxLength) {
       const $div = document.createElement('div')
 
