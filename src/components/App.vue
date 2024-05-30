@@ -15,6 +15,12 @@ import Authenticated from '@/components/Authenticated.vue'
 
 const URL_CREATOR = window.URL || window.webkitURL
 
+class PageIsGoneError extends Error {
+  constructor () {
+    super('Page is gone.')
+  }
+}
+
 export default {
   name: 'App',
   components: {
@@ -134,7 +140,16 @@ export default {
         this.getPageChildren(page)
       ]).then(() => {
         this.setLocalPages(this.pages)
+      }).catch((err) => {
+        if (err instanceof PageIsGoneError) {
+          this.removePage(page)
+        }
       })
+    },
+
+    removePage (page) {
+      this.pages.slice(this.pages.indexOf(page), 1)
+      this.updatePages(this.pages)
     },
 
     updateAllPages (skip) {
@@ -148,7 +163,7 @@ export default {
           return alert('All pages are fetched!')
         }
 
-        this.updatePage(page).then(() => {
+        this.updatePage(page).finally(() => {
           setTimeout(() => {
             this.updateAllPages(true)
           }, 1000)
@@ -188,6 +203,10 @@ export default {
           }
         }).then((response) => {
           response.json().then((json) => {
+            if (json.statusCode === 404) {
+              return reject(new PageIsGoneError())
+            }
+
             resolve(json)
           })
         }).catch(reject)
