@@ -138,7 +138,7 @@ export default {
           page.description = this.truncate(page.body, 150)
 
           resolve()
-        })
+        }).catch(reject)
       })
     },
 
