@@ -148,8 +148,8 @@ export default {
     },
 
     removePage (page) {
-      this.pages.slice(this.pages.indexOf(page), 1)
-      this.updatePages(this.pages)
+      this.pages.splice(this.pages.indexOf(page), 1)
+      this.setLocalPages(this.pages)
     },
 
     updateAllPages (skip) {
