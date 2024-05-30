@@ -14,7 +14,7 @@ export default {
   props: ['app'],
   mounted () {
     if (this.$route.path === '/') {
-      this.app.toggleNav(false)
+      this.app.toggleNavIfMobile(false)
     }
   }
 }
