@@ -31,7 +31,7 @@ export default {
     return {
       app: this,
       loading: true,
-      showNav: false,
+      showNav: window.outerWidth > 780,
       user: {},
       spaces: {},
       pages: [],
