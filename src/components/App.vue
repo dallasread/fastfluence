@@ -156,7 +156,7 @@ export default {
       var eta = Math.round(this.pages.length / 60)
       if (skip || confirm(`Do you want to fetch the content of all pages to store locally? Each request will be separated by 1 second so we don't hit any rate limiting issues (ETA ${eta} minutes for all pages). If you're brave, click this a bunch of times. We'll let you know when it is done. If you leave, it will pick up where it left off.`)) {
         var page = this.pages.find((page) => {
-          return !page.body || !page.childrenIds
+          return (!page.body || !page.childrenIds) && page.status !== 'archived'
         })
 
         if (!page) {
