@@ -21,6 +21,12 @@ class PageIsGoneError extends Error {
   }
 }
 
+class PageIsArchivedError extends Error {
+  constructor () {
+    super('Page is archived.')
+  }
+}
+
 export default {
   name: 'App',
   components: {
@@ -122,9 +128,17 @@ export default {
     },
 
     getPageContent (page) {
-      return this.fetch(`/content/${page.id}?expand=body.view`).then((data) => {
-        page.body = data.body.view.value || ''
-        page.description = this.truncate(page.body, 150)
+      return new Promise((resolve, reject) => {
+        this.fetch(`/content/${page.id}?expand=body.view`).then((data) => {
+          if (data.status === 'archived') {
+            return reject(new PageIsArchivedError())
+          }
+
+          page.body = data.body.view.value || ''
+          page.description = this.truncate(page.body, 150)
+
+          resolve()
+        })
       })
     },
 
@@ -141,7 +155,7 @@ export default {
       ]).then(() => {
         this.setLocalPages(this.pages)
       }).catch((err) => {
-        if (err instanceof PageIsGoneError) {
+        if ((err instanceof PageIsGoneError) || (err instanceof PageIsArchivedError)) {
           this.removePage(page)
         }
       })
