@@ -60,7 +60,7 @@ export default {
   computed: {
     pagesWithoutContent () {
       return this.pages.filter((page) => {
-        return (!page.body || !page.childrenIds) && page.status !== 'archived'
+        return (typeof page.body === 'undefined' || !page.childrenIds) && page.status !== 'archived'
       })
     }
   },
