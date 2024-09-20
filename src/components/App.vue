@@ -117,7 +117,7 @@ export default {
             for (var key in page) {
               found[key] = page[key]
             }
-          } else {
+          } else if (page.status !== 'archived') {
             this.pages.push(page)
           }
         })
